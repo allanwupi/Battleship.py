@@ -50,7 +50,7 @@ class Board:
         if self.grid[i] != self.blank:
             ship_name, health = self.fleet.damage(self.grid[i])
             sequence = '\033[41m'+'X'+'\033[0m'
-            print('Hit!')
+            print('Hit.')
             if health == 0:
                 print(f"You sunk the enemy {ship_name}!")
         else:

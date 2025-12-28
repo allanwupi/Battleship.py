@@ -4,7 +4,7 @@ import copy
 EXIT_COMMANDS = ['', 'n', 'e', 'c', 'q','p','x','exit', 'clear', 'close', 'pass','quit']
 CHEAT_CODES = ['r', 's', 'cheat', 'reveal', 'secret', 'show']
 
-if __name__ == "__main__":
+def run():
     game = Board(10,10,'\033[2m.\033[0m')
     original = copy.deepcopy(game)
     player_move = ''
@@ -29,5 +29,9 @@ if __name__ == "__main__":
             if game.game_over():
                 original.render()
                 print(f"You destroyed the enemy fleet in {turn_number} turns.")
+                print(f"Accuracy: {100*17.0/turn_number:.2f}%")
                 break
             turn_number += 1
+
+if __name__ == "__main__":
+    run()
