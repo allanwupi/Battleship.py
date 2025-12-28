@@ -1,10 +1,9 @@
-from game import *
+from board import *
 
 EXIT_COMMANDS = ['', 'e', 'c', 'q','p','x','exit', 'clear', 'close', 'pass','quit']
 
 if __name__ == "__main__":
     game = Board(10,10,'\033[2m.\033[0m')
-    player_map = View(game)
     game.render()
     player_move = ''
     turn_number = 1
@@ -20,7 +19,7 @@ if __name__ == "__main__":
             continue
         else:
             game.shoot(index)
-            player_map.render()
+            game.render(True)
             turn_number += 1
         if game.game_over():
             print("The enemy fleet has been destroyed.")

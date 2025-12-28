@@ -19,7 +19,7 @@ class Board:
         for ship in self.fleet.ships():
             self.spawn(ship)
     
-    def render(self):
+    def render(self, hidden=False):
         row_idx = 1
         col_idx = ord('A')
         print('     ', end='')
@@ -37,7 +37,10 @@ class Board:
                 if symbol in self.fleet.keys():
                     if pos<self.rows*self.cols-1 and self.grid[pos+1] == symbol:
                         clear = ''
-                    symbol = '\033[100m'+symbol
+                    if hidden:
+                        symbol = self.blank
+                    else:
+                        symbol = '\033[100m'+symbol
                 print(clear+symbol+clear+' ', end='')
             print('\033[0m|')
             row_idx += 1
@@ -75,11 +78,10 @@ class Board:
     def spawn(self, ship: Ship):
         start_col, end_col = 0,self.cols-1
         start_row, end_row = 0,self.rows-1
-        match ship.heading:
-            case Heading.VERTICAL:
-                end_row = self.rows-ship.size
-            case Heading.HORIZONTAL:
-                end_col = self.cols-ship.size
+        if ship.heading == Heading.VERTICAL:
+            end_row = self.rows-ship.size
+        elif ship.heading == Heading.HORIZONTAL:
+            end_col = self.cols-ship.size
         pos = None
         places = []
         while True:
@@ -108,35 +110,6 @@ class Board:
         for ship in self.fleet.ships():
             total_health += ship.health
         return (total_health == 0)
-
-
-class View(Board):
-    def __init__(self, game):
-        self.rows = game.rows
-        self.cols = game.cols
-        self.blank = game.blank
-        self.grid = game.grid
-        self.keys = game.fleet.keys()
-    
-    def render(self):
-        row_idx = 1
-        col_idx = ord('A')
-        print('     ', end='')
-        for j in range(self.cols):
-            print(chr(col_idx) + ' ', end='')
-            col_idx += 1
-        print()
-        print('   +-'+'--'*(self.cols)+'+')
-        for i in range(self.rows):
-            print(f'{row_idx:2d} | ',end='')
-            for j in range(self.cols):
-                symbol = self.grid[i*self.cols+j]
-                if symbol in self.keys:
-                    symbol = self.blank
-                print(symbol+' ', end='')
-            print('|')
-            row_idx += 1
-        print('   +-'+'--'*(self.cols)+'+')
 
 
 if __name__ == "__main__":
