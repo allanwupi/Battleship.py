@@ -6,20 +6,20 @@ class Heading(IntEnum):
     VERTICAL = 1
 
 class Ship:
-    def __init__(self, name, size):
+    def __init__(self, name, symbol, size):
         self.name = name
-        self.symbol = name[0].upper()
+        self.symbol = symbol
         self.size = size
         self.health = size
         self.heading = Heading(randint(0,1))
 
 class Fleet:
     _DEFAULT_FLEET = [
-        Ship("Airship Carrier",5),
-        Ship("Battleship",4),
-        Ship("Cruiser",3),
-        Ship("Submarine",3),
-        Ship("Destroyer",2),
+        Ship("Airship Carrier",'A',5),
+        Ship("Battleship",'B',4),
+        Ship("Cruiser",'C',3),
+        Ship("Destroyer",'D',2),
+        Ship("Submarine",'S',3),
     ]
     
     def __init__(self, fleet=_DEFAULT_FLEET):
@@ -41,6 +41,19 @@ class Fleet:
     
     def keys(self):
         return self._ships.keys()
+
+PUZZLE_FLEET = [
+    Ship("Battleship",'B',4),
+    Ship("Cruiser",'C',3),
+    Ship("Cruiser",'c',3),
+    Ship("Destroyer",'D',2),
+    Ship("Destroyer",'e',2),
+    Ship("Destroyer",'f',2),
+    Ship("Submarine",'s',1),
+    Ship("Submarine",'t',1),
+    Ship("Submarine",'u',1),
+    Ship("Submarine",'v',1),
+]
 
 
 if __name__ == "__main__":

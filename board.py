@@ -46,15 +46,15 @@ class Board:
             row_idx += 1
         print('   +-'+'--'*(self.cols)+'+')
 
-    def shoot(self, i, symbol='X'):
+    def shoot(self, i):
         if self.grid[i] != self.blank:
             ship_name, health = self.fleet.damage(self.grid[i])
-            sequence = '\033[41m'+symbol+'\033[0m'
+            sequence = '\033[41m'+'X'+'\033[0m'
             print('Hit!')
             if health == 0:
                 print(f"You sunk the enemy {ship_name}!")
         else:
-            sequence = symbol
+            sequence = 'O'
             print('Miss.')
         self.grid[i] = sequence
     
@@ -86,7 +86,7 @@ class Board:
         places = []
         while True:
             adjacent = False
-            if pos is not None and chance(50):
+            if pos is not None and chance(60):
                 nearby = [pos+v for v in self.vectors if pos+v >= 0 and pos+v < self.rows*self.cols]
                 for x in nearby:
                     if self.grid[x] != self.blank:
