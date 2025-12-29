@@ -45,6 +45,32 @@ class Board:
             print('\033[0m|')
             row_idx += 1
         print('   +-'+'--'*(self.cols)+'+')
+    
+    def show_hints(self):
+        row_totals = [0]*self.rows
+        col_totals = [0]*self.cols
+        for i in range(self.rows):
+            for j in range(self.cols):
+                pos = i*self.cols+j
+                occupied = 1 if self.grid[pos] in self.fleet.keys() else 0
+                row_totals[i] += occupied
+                col_totals[j] += occupied
+        print('     ', end='')
+        for j in range(self.cols):
+            print(f'{col_totals[j]} ', end='')
+        print()
+        print('   +-'+'--'*(self.cols)+'+')
+        for i in range(self.rows):
+            print(f'{row_totals[i]:2d} | ',end='')
+            for j in range(self.cols):
+                pos = i*self.cols+j
+                symbol = self.grid[pos]
+                clear = '\033[0m'
+                if symbol in self.fleet.keys():
+                    symbol = self.blank
+                print(clear+symbol+clear+' ', end='')
+            print('\033[0m|')
+        print('   +-'+'--'*(self.cols)+'+')
 
     def shoot(self, i):
         if self.grid[i] != self.blank:

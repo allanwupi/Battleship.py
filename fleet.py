@@ -24,8 +24,10 @@ class Fleet:
     
     def __init__(self, fleet=_DEFAULT_FLEET):
         self._ships = {}
+        self.total = 0
         for s in fleet:
             self._ships[s.symbol] = s
+            self.total += s.size
     
     def describe(self):
         for k in self._ships:
