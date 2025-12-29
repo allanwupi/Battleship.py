@@ -21,6 +21,7 @@ def run():
             continue
         elif player_move.lower() in HINT_CODES:
             game.show_hints()
+            game.render(hidden=True)
             hints_used += 1
             continue
         index = game.convert(player_move)
@@ -31,7 +32,7 @@ def run():
             continue
         else:
             game.shoot(index)
-            game.render(True)
+            game.render(hidden=True)
             if game.game_over():
                 original.render()
                 print(f"You destroyed the enemy fleet in {turn_number} turns.")
