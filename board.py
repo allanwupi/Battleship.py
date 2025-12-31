@@ -112,7 +112,7 @@ class Board:
         places = []
         while True:
             adjacent = False
-            if pos is not None and chance(60):
+            if pos is not None and chance(50):
                 nearby = [pos+v for v in self.vectors if pos+v >= 0 and pos+v < self.rows*self.cols]
                 for x in nearby:
                     if self.grid[x] != self.blank:

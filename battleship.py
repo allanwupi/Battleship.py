@@ -32,6 +32,7 @@ def run():
             continue
         else:
             game.shoot(index)
+            #print('\r\033[15A', end='')
             game.render(hidden=True)
             if game.game_over():
                 original.render()
